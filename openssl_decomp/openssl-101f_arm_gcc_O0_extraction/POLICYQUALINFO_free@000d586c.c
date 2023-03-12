@@ -1,0 +1,8 @@
+
+void POLICYQUALINFO_free(POLICYQUALINFO *a)
+
+{
+  ASN1_item_free((ASN1_VALUE *)a,(ASN1_ITEM *)PTR_POLICYQUALINFO_it_000d5874);
+  return;
+}
+

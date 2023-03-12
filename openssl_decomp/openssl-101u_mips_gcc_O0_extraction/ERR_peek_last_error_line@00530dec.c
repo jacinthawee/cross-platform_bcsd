@@ -1,0 +1,27 @@
+
+ulong ERR_peek_last_error_line(char **file,int *line)
+
+{
+  ERR_STATE *pEVar1;
+  ulong uVar2;
+  int iVar3;
+  
+  pEVar1 = ERR_get_state();
+  iVar3 = pEVar1->top;
+  if (pEVar1->bottom != iVar3) {
+    uVar2 = pEVar1->err_buffer[iVar3];
+    if ((file != (char **)0x0) && (line != (int *)0x0)) {
+      if (pEVar1->err_file[iVar3] == (char *)0x0) {
+        *file = "NA";
+        *line = 0;
+      }
+      else {
+        *file = pEVar1->err_file[iVar3];
+        *line = pEVar1->err_line[iVar3];
+      }
+    }
+    return uVar2;
+  }
+  return 0;
+}
+

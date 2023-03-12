@@ -1,0 +1,24 @@
+
+int ecdh_check(undefined4 param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  
+  iVar1 = (*(code *)PTR_EC_KEY_get_key_method_data_006a976c)(param_1,ecdh_data_dup,ecdh_data_free);
+  if (((iVar1 == 0) && (iVar2 = ECDH_DATA_new_method_constprop_1(), iVar2 != 0)) &&
+     (iVar3 = (*(code *)PTR_EC_KEY_insert_key_method_data_006a9770)
+                        (param_1,iVar2,ecdh_data_dup,ecdh_data_free,ecdh_data_free), iVar1 = iVar2,
+     iVar3 != 0)) {
+    if (*(int *)(iVar2 + 4) != 0) {
+      (*(code *)PTR_ENGINE_finish_006a6fc4)();
+    }
+    (*(code *)PTR_CRYPTO_free_ex_data_006a82f8)(0xd,iVar2,iVar2 + 0x10);
+    (*(code *)PTR_OPENSSL_cleanse_006a7074)(iVar2,0x18);
+    (*(code *)PTR_CRYPTO_free_006a6e88)(iVar2);
+    iVar1 = iVar3;
+  }
+  return iVar1;
+}
+

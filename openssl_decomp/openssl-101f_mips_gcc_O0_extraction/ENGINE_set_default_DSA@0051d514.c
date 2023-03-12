@@ -1,0 +1,14 @@
+
+int ENGINE_set_default_DSA(ENGINE *e)
+
+{
+  int iVar1;
+  
+  if (*(int *)(e + 0xc) != 0) {
+    iVar1 = (*(code *)PTR_engine_table_register_006a9980)
+                      (&dsa_table,engine_unregister_all_DSA,e,&dummy_nid,1,1,&_gp);
+    return iVar1;
+  }
+  return 1;
+}
+

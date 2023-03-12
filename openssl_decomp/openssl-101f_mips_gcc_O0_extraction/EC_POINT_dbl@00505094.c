@@ -1,0 +1,27 @@
+
+int EC_POINT_dbl(EC_GROUP *group,EC_POINT *r,EC_POINT *a,BN_CTX *ctx)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  undefined4 uVar3;
+  
+  iVar1 = *(int *)group;
+  if (*(code **)(iVar1 + 0x5c) == (code *)0x0) {
+    uVar3 = 0x42;
+    uVar2 = 0x3a3;
+  }
+  else {
+    if ((iVar1 == *(int *)r) && (iVar1 == *(int *)a)) {
+                    /* WARNING: Could not recover jumptable at 0x00505100. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+      iVar1 = (**(code **)(iVar1 + 0x5c))();
+      return iVar1;
+    }
+    uVar3 = 0x65;
+    uVar2 = 0x3a8;
+  }
+  (*(code *)PTR_ERR_put_error_006a9030)(0x10,0x73,uVar3,"ec_lib.c",uVar2);
+  return 0;
+}
+

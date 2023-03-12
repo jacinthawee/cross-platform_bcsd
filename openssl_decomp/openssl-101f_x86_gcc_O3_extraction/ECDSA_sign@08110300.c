@@ -1,0 +1,35 @@
+
+int ECDSA_sign(int type,uchar *dgst,int dgstlen,uchar *sig,uint *siglen,EC_KEY *eckey)
+
+{
+  int iVar1;
+  ECDSA_SIG *sig_00;
+  uint uVar2;
+  int in_GS_OFFSET;
+  uchar *local_24;
+  int local_20;
+  
+  local_20 = *(int *)(in_GS_OFFSET + 0x14);
+  local_24 = sig;
+  RAND_seed(dgst,dgstlen);
+  iVar1 = ecdsa_check(eckey);
+  if (iVar1 != 0) {
+    sig_00 = (ECDSA_SIG *)(**(code **)(*(int *)(iVar1 + 0xc) + 4))(dgst,dgstlen,0,0,eckey);
+    if (sig_00 != (ECDSA_SIG *)0x0) {
+      uVar2 = i2d_ECDSA_SIG(sig_00,&local_24);
+      *siglen = uVar2;
+      ECDSA_SIG_free(sig_00);
+      iVar1 = 1;
+      goto LAB_0811037a;
+    }
+  }
+  *siglen = 0;
+  iVar1 = 0;
+LAB_0811037a:
+  if (local_20 == *(int *)(in_GS_OFFSET + 0x14)) {
+    return iVar1;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+

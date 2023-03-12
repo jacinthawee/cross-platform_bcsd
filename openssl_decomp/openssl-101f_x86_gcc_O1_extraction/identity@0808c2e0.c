@@ -1,0 +1,7 @@
+
+void identity(void)
+
+{
+  return;
+}
+

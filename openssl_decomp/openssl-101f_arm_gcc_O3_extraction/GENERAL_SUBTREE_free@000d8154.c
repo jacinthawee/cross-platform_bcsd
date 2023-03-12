@@ -1,0 +1,8 @@
+
+void GENERAL_SUBTREE_free(GENERAL_SUBTREE *a)
+
+{
+  ASN1_item_free((ASN1_VALUE *)a,(ASN1_ITEM *)PTR_GENERAL_SUBTREE_it_000d815c);
+  return;
+}
+

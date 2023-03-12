@@ -1,0 +1,8 @@
+
+void ISSUING_DIST_POINT_free(ISSUING_DIST_POINT *a)
+
+{
+  ASN1_item_free((ASN1_VALUE *)a,(ASN1_ITEM *)PTR_ISSUING_DIST_POINT_it_000d4390);
+  return;
+}
+

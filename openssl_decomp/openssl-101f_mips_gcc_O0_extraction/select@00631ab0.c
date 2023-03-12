@@ -1,0 +1,105 @@
+
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int select(int __nfds,fd_set *__readfds,fd_set *__writefds,fd_set *__exceptfds,timeval *__timeout)
+
+{
+  int iVar1;
+  
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  (*pcGpffff8010)();
+  iVar1 = (*(code *)(PTR_LAB_006a7f04 + 0x162c))();
+  return iVar1;
+}
+

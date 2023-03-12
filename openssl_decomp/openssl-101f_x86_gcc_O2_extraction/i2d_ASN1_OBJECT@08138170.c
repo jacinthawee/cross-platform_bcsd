@@ -1,0 +1,27 @@
+
+int i2d_ASN1_OBJECT(ASN1_OBJECT *a,uchar **pp)
+
+{
+  int iVar1;
+  int in_GS_OFFSET;
+  uchar *local_14;
+  int local_10;
+  
+  iVar1 = 0;
+  local_10 = *(int *)(in_GS_OFFSET + 0x14);
+  if ((a != (ASN1_OBJECT *)0x0) && (a->data != (uchar *)0x0)) {
+    iVar1 = ASN1_object_size(0,a->length,6);
+    if (pp != (uchar **)0x0) {
+      local_14 = *pp;
+      ASN1_put_object(&local_14,0,a->length,6,0);
+      memcpy(local_14,a->data,a->length);
+      *pp = local_14 + a->length;
+    }
+  }
+  if (local_10 == *(int *)(in_GS_OFFSET + 0x14)) {
+    return iVar1;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+

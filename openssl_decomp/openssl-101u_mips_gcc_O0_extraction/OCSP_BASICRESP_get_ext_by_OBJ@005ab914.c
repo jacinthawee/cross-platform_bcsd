@@ -1,0 +1,12 @@
+
+int OCSP_BASICRESP_get_ext_by_OBJ(OCSP_BASICRESP *x,ASN1_OBJECT *obj,int lastpos)
+
+{
+  int iVar1;
+  
+                    /* WARNING: Could not recover jumptable at 0x005ab924. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+  iVar1 = (*(code *)PTR_X509v3_get_ext_by_OBJ_006a8f4c)(x->tbsResponseData->responseExtensions);
+  return iVar1;
+}
+

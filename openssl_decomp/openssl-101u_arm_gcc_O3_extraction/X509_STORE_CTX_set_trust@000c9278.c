@@ -1,0 +1,19 @@
+
+int X509_STORE_CTX_set_trust(X509_STORE_CTX *ctx,int trust)
+
+{
+  int iVar1;
+  
+  if (trust != 0) {
+    iVar1 = X509_TRUST_get_by_id(trust);
+    if (iVar1 == -1) {
+      ERR_put_error(0xb,0x86,0x78,"x509_vfy.c",0x82e);
+      return 0;
+    }
+    if (ctx->param->trust == 0) {
+      ctx->param->trust = trust;
+    }
+  }
+  return 1;
+}
+

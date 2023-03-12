@@ -1,0 +1,87 @@
+
+PKCS7_RECIP_INFO * PKCS7_add_recipient(PKCS7 *p7,X509 *x509)
+
+{
+  undefined *puVar1;
+  PKCS7_RECIP_INFO *a;
+  int iVar2;
+  undefined4 uVar3;
+  ASN1_INTEGER *pAVar4;
+  int iVar5;
+  ASN1_OBJECT *pAVar6;
+  stack_st_PKCS7_RECIP_INFO *psVar7;
+  undefined4 uVar8;
+  PKCS7_ISSUER_AND_SERIAL *pPVar9;
+  code *pcVar10;
+  
+  a = PKCS7_RECIP_INFO_new();
+  if (a == (PKCS7_RECIP_INFO *)0x0) {
+    return (PKCS7_RECIP_INFO *)0x0;
+  }
+  iVar2 = (*(code *)PTR_ASN1_INTEGER_set_006a8264)(a->version,0);
+  if (iVar2 != 0) {
+    pPVar9 = a->issuer_and_serial;
+    uVar3 = (*(code *)PTR_X509_get_issuer_name_006a87d0)(x509);
+    iVar2 = (*(code *)PTR_X509_NAME_set_006aa048)(pPVar9,uVar3);
+    if (iVar2 != 0) {
+      (*(code *)PTR_ASN1_STRING_free_006a98bc)(a->issuer_and_serial->serial);
+      pPVar9 = a->issuer_and_serial;
+      uVar3 = (*(code *)PTR_X509_get_serialNumber_006a809c)(x509);
+      pAVar4 = (ASN1_INTEGER *)(*(code *)PTR_ASN1_STRING_dup_006a9ddc)(uVar3);
+      pPVar9->serial = pAVar4;
+      if (pAVar4 != (ASN1_INTEGER *)0x0) {
+        iVar2 = (*(code *)PTR_X509_get_pubkey_006a8008)(x509);
+        if (iVar2 == 0) {
+          (*(code *)PTR_ERR_put_error_006a9030)(0x21,0x82,0x96,"pk7_lib.c",0x225);
+        }
+        else {
+          if ((*(int *)(iVar2 + 0xc) == 0) ||
+             (pcVar10 = *(code **)(*(int *)(iVar2 + 0xc) + 0x58), pcVar10 == (code *)0x0)) {
+            uVar8 = 0x96;
+            uVar3 = 0x225;
+          }
+          else {
+            iVar5 = (*pcVar10)(iVar2,2,0,a);
+            if (iVar5 == -2) {
+              uVar8 = 0x96;
+              uVar3 = 0x22e;
+            }
+            else {
+              if (0 < iVar5) {
+                (*(code *)PTR_EVP_PKEY_free_006a7f78)(iVar2);
+                (*(code *)PTR_CRYPTO_add_lock_006a9080)(&x509->references,1,3,"pk7_lib.c",0x23a);
+                puVar1 = PTR_OBJ_obj2nid_006a822c;
+                pAVar6 = p7->type;
+                a->cert = x509;
+                iVar2 = (*(code *)puVar1)(pAVar6);
+                if (iVar2 == 0x17) {
+                  psVar7 = (stack_st_PKCS7_RECIP_INFO *)((p7->d).data)->type;
+                }
+                else {
+                  if (iVar2 != 0x18) {
+                    (*(code *)PTR_ERR_put_error_006a9030)(0x21,0x66,0x71,"pk7_lib.c",0x208);
+                    goto LAB_005a37f8;
+                  }
+                  psVar7 = ((p7->d).signed_and_enveloped)->recipientinfo;
+                }
+                iVar2 = (*(code *)PTR_sk_push_006a80a8)(psVar7,a);
+                if (iVar2 != 0) {
+                  return a;
+                }
+                goto LAB_005a37f8;
+              }
+              uVar8 = 0x95;
+              uVar3 = 0x234;
+            }
+          }
+          (*(code *)PTR_ERR_put_error_006a9030)(0x21,0x82,uVar8,"pk7_lib.c",uVar3);
+          (*(code *)PTR_EVP_PKEY_free_006a7f78)(iVar2);
+        }
+      }
+    }
+  }
+LAB_005a37f8:
+  PKCS7_RECIP_INFO_free(a);
+  return (PKCS7_RECIP_INFO *)0x0;
+}
+

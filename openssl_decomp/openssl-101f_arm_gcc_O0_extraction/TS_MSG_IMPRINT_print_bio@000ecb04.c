@@ -1,0 +1,22 @@
+
+undefined4 TS_MSG_IMPRINT_print_bio(BIO *param_1,undefined4 param_2)
+
+{
+  ASN1_OBJECT **ppAVar1;
+  int n;
+  undefined4 *puVar2;
+  char *pcVar3;
+  
+  ppAVar1 = (ASN1_OBJECT **)TS_MSG_IMPRINT_get_algo(param_2);
+  n = OBJ_obj2nid(*ppAVar1);
+  pcVar3 = "UNKNOWN";
+  if (n != 0) {
+    pcVar3 = OBJ_nid2ln(n);
+  }
+  BIO_printf(param_1,"Hash Algorithm: %s\n",pcVar3);
+  BIO_printf(param_1,"Message data:\n");
+  puVar2 = (undefined4 *)TS_MSG_IMPRINT_get_msg(param_2);
+  BIO_dump_indent(param_1,puVar2[2],*puVar2,4);
+  return 1;
+}
+

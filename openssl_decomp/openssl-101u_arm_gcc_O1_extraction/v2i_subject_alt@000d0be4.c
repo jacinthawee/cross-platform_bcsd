@@ -1,0 +1,275 @@
+
+_STACK * v2i_subject_alt(undefined4 param_1,X509V3_CTX *param_2,_STACK *param_3)
+
+{
+  _STACK *st;
+  int iVar1;
+  void *pvVar2;
+  int iVar3;
+  GENERAL_NAME *pGVar4;
+  ASN1_STRING *pAVar5;
+  size_t sVar6;
+  X509_NAME_ENTRY *pXVar7;
+  OTHERNAME *pOVar8;
+  ASN1_TYPE *pAVar9;
+  ASN1_OBJECT *pAVar10;
+  ASN1_OCTET_STRING *pAVar11;
+  X509_NAME *nm;
+  X509_NAME *pXVar12;
+  char *pcVar13;
+  int iVar14;
+  char *__s1;
+  
+  st = sk_new_null();
+  if (st == (_STACK *)0x0) {
+    ERR_put_error(0x22,0x9a,0x41,"v3_alt.c",0x13c);
+    return (_STACK *)0x0;
+  }
+  iVar14 = 0;
+  iVar1 = sk_num(param_3);
+  if (0 < iVar1) {
+    do {
+      pvVar2 = sk_value(param_3,iVar14);
+      iVar1 = name_cmp(*(char **)((int)pvVar2 + 4),"email");
+      if (((iVar1 == 0) && (*(char **)((int)pvVar2 + 8) != (char *)0x0)) &&
+         (iVar1 = strcmp(*(char **)((int)pvVar2 + 8),"copy"), iVar1 == 0)) {
+        if (param_2 == (X509V3_CTX *)0x0) {
+LAB_000d0fe2:
+          pGVar4 = (GENERAL_NAME *)0x0;
+          ERR_put_error(0x22,0x7a,0x7d,"v3_alt.c",0x164);
+          pAVar5 = (ASN1_STRING *)0x0;
+LAB_000d0f5e:
+          GENERAL_NAME_free(pGVar4);
+          ASN1_STRING_free(pAVar5);
+          goto LAB_000d0cda;
+        }
+        if (param_2->flags != 1) {
+          if (param_2->subject_cert == (X509 *)0x0) {
+            if (param_2->subject_req == (X509_REQ *)0x0) goto LAB_000d0fe2;
+            pXVar12 = param_2->subject_req->req_info->subject;
+          }
+          else {
+            pXVar12 = X509_get_subject_name(param_2->subject_cert);
+          }
+          iVar1 = -1;
+          while (iVar1 = X509_NAME_get_index_by_NID(pXVar12,0x30,iVar1), -1 < iVar1) {
+            pXVar7 = X509_NAME_get_entry(pXVar12,iVar1);
+            pAVar5 = X509_NAME_ENTRY_get_data(pXVar7);
+            pAVar5 = ASN1_STRING_dup(pAVar5);
+            if ((pAVar5 == (ASN1_STRING *)0x0) ||
+               (pGVar4 = GENERAL_NAME_new(), pGVar4 == (GENERAL_NAME *)0x0)) {
+              pGVar4 = (GENERAL_NAME *)0x0;
+              ERR_put_error(0x22,0x7a,0x41,"v3_alt.c",0x179);
+              goto LAB_000d0f5e;
+            }
+            pGVar4->type = 1;
+            (pGVar4->d).otherName = (OTHERNAME *)pAVar5;
+            pAVar5 = (ASN1_STRING *)sk_push(st,pGVar4);
+            if (pAVar5 == (ASN1_STRING *)0x0) {
+              ERR_put_error(0x22,0x7a,0x41,"v3_alt.c",0x180);
+              goto LAB_000d0f5e;
+            }
+          }
+        }
+        goto LAB_000d0d84;
+      }
+      iVar1 = name_cmp(*(char **)((int)pvVar2 + 4),"email");
+      __s1 = *(char **)((int)pvVar2 + 8);
+      if (iVar1 == 0) {
+        if (__s1 == (char *)0x0) {
+LAB_000d0cfc:
+          ERR_put_error(0x22,0x75,0x7c,"v3_alt.c",0x213);
+          goto LAB_000d0cda;
+        }
+        iVar1 = strcmp(__s1,"move");
+        if (iVar1 == 0) {
+          if (param_2 == (X509V3_CTX *)0x0) {
+LAB_000d1000:
+            pGVar4 = (GENERAL_NAME *)0x0;
+            ERR_put_error(0x22,0x7a,0x7d,"v3_alt.c",0x164);
+            pAVar5 = (ASN1_STRING *)0x0;
+LAB_000d0f88:
+            GENERAL_NAME_free(pGVar4);
+            ASN1_STRING_free(pAVar5);
+            goto LAB_000d0cda;
+          }
+          if (param_2->flags == 1) goto LAB_000d0d84;
+          if (param_2->subject_cert == (X509 *)0x0) {
+            if (param_2->subject_req == (X509_REQ *)0x0) goto LAB_000d1000;
+            pXVar12 = param_2->subject_req->req_info->subject;
+          }
+          else {
+            pXVar12 = X509_get_subject_name(param_2->subject_cert);
+          }
+          iVar1 = -1;
+          while( true ) {
+            iVar3 = X509_NAME_get_index_by_NID(pXVar12,0x30,iVar1);
+            iVar1 = iVar3 + -1;
+            if (iVar3 < 0) break;
+            pXVar7 = X509_NAME_get_entry(pXVar12,iVar3);
+            pAVar5 = X509_NAME_ENTRY_get_data(pXVar7);
+            pAVar5 = ASN1_STRING_dup(pAVar5);
+            X509_NAME_delete_entry(pXVar12,iVar3);
+            X509_NAME_ENTRY_free(pXVar7);
+            if ((pAVar5 == (ASN1_STRING *)0x0) ||
+               (pGVar4 = GENERAL_NAME_new(), pGVar4 == (GENERAL_NAME *)0x0)) {
+              pGVar4 = (GENERAL_NAME *)0x0;
+              ERR_put_error(0x22,0x7a,0x41,"v3_alt.c",0x179);
+              goto LAB_000d0f88;
+            }
+            (pGVar4->d).otherName = (OTHERNAME *)pAVar5;
+            pGVar4->type = 1;
+            pAVar5 = (ASN1_STRING *)sk_push(st,pGVar4);
+            if (pAVar5 == (ASN1_STRING *)0x0) {
+              ERR_put_error(0x22,0x7a,0x41,"v3_alt.c",0x180);
+              goto LAB_000d0f88;
+            }
+          }
+          goto LAB_000d0d84;
+        }
+        pcVar13 = *(char **)((int)pvVar2 + 4);
+      }
+      else {
+        pcVar13 = *(char **)((int)pvVar2 + 4);
+        if (__s1 == (char *)0x0) goto LAB_000d0cfc;
+      }
+      iVar1 = name_cmp(pcVar13,"email");
+      if (iVar1 != 0) {
+        iVar1 = 6;
+        iVar3 = name_cmp(pcVar13,"URI");
+        if (iVar3 == 0) goto LAB_000d0c8e;
+        iVar1 = 2;
+        iVar3 = name_cmp(pcVar13,"DNS");
+        if (iVar3 == 0) goto LAB_000d0c8e;
+        iVar1 = name_cmp(pcVar13,"RID");
+        if (iVar1 != 0) {
+          iVar1 = name_cmp(pcVar13,"IP");
+          if (iVar1 != 0) {
+            iVar1 = name_cmp(pcVar13,"dirName");
+            if (iVar1 == 0) {
+              pGVar4 = GENERAL_NAME_new();
+              if (pGVar4 != (GENERAL_NAME *)0x0) {
+                nm = X509_NAME_new();
+                pXVar12 = nm;
+                if (nm != (X509_NAME *)0x0) {
+                  pXVar12 = (X509_NAME *)X509V3_get_section(param_2,__s1);
+                  if (pXVar12 == (X509_NAME *)0x0) {
+                    ERR_put_error(0x22,0x90,0x96,"v3_alt.c",0x252);
+                    ERR_add_error_data(2,"section=",__s1);
+                  }
+                  else {
+                    iVar1 = X509V3_NAME_from_section(nm,(stack_st_CONF_VALUE *)pXVar12,0x1001);
+                    if (iVar1 != 0) {
+                      (pGVar4->d).directoryName = nm;
+                      X509V3_section_free(param_2,(stack_st_CONF_VALUE *)pXVar12);
+                      pGVar4->type = 4;
+                      sk_push(st,pGVar4);
+                      goto LAB_000d0d84;
+                    }
+                  }
+                }
+                X509_NAME_free(nm);
+                X509V3_section_free(param_2,(stack_st_CONF_VALUE *)pXVar12);
+                ERR_put_error(0x22,0xa4,0x95,"v3_alt.c",0x1e4);
+                goto LAB_000d0cd4;
+              }
+              goto LAB_000d119c;
+            }
+            iVar1 = name_cmp(pcVar13,"otherName");
+            if (iVar1 != 0) {
+              ERR_put_error(0x22,0x75,0x75,"v3_alt.c",0x226);
+              ERR_add_error_data(2,"name=",pcVar13);
+              goto LAB_000d0cda;
+            }
+            pGVar4 = GENERAL_NAME_new();
+            if (pGVar4 == (GENERAL_NAME *)0x0) goto LAB_000d119c;
+            pcVar13 = strchr(__s1,0x3b);
+            if (pcVar13 == (char *)0x0) {
+LAB_000d10fc:
+              ERR_put_error(0x22,0xa4,0x93,"v3_alt.c",0x1eb);
+              goto LAB_000d0cd4;
+            }
+            pOVar8 = OTHERNAME_new();
+            (pGVar4->d).otherName = pOVar8;
+            if (pOVar8 == (OTHERNAME *)0x0) goto LAB_000d10fc;
+            ASN1_TYPE_free(pOVar8->value);
+            pOVar8 = (pGVar4->d).otherName;
+            pAVar9 = ASN1_generate_v3(pcVar13 + 1,param_2);
+            pOVar8->value = pAVar9;
+            if (pAVar9 == (ASN1_TYPE *)0x0) goto LAB_000d10fc;
+            sVar6 = (int)pcVar13 - (int)__s1;
+            pcVar13 = (char *)CRYPTO_malloc(sVar6 + 1,"v3_alt.c",0x23f);
+            strncpy(pcVar13,__s1,sVar6);
+            pcVar13[sVar6] = '\0';
+            pOVar8 = (pGVar4->d).otherName;
+            pAVar10 = OBJ_txt2obj(pcVar13,0);
+            pOVar8->type_id = pAVar10;
+            CRYPTO_free(pcVar13);
+            if (((pGVar4->d).otherName)->type_id == (ASN1_OBJECT *)0x0) goto LAB_000d10fc;
+            iVar1 = 0;
+            goto LAB_000d0ed8;
+          }
+          pGVar4 = GENERAL_NAME_new();
+          if (pGVar4 != (GENERAL_NAME *)0x0) {
+            pAVar11 = a2i_IPADDRESS(__s1);
+            (pGVar4->d).iPAddress = pAVar11;
+            if (pAVar11 == (ASN1_OCTET_STRING *)0x0) {
+              iVar14 = 0x1dc;
+              iVar1 = 0x76;
+              goto LAB_000d1070;
+            }
+            pGVar4->type = 7;
+            sk_push(st,pGVar4);
+            goto LAB_000d0d84;
+          }
+          goto LAB_000d119c;
+        }
+        pGVar4 = GENERAL_NAME_new();
+        if (pGVar4 == (GENERAL_NAME *)0x0) goto LAB_000d119c;
+        pAVar10 = OBJ_txt2obj(__s1,0);
+        if (pAVar10 != (ASN1_OBJECT *)0x0) {
+          (pGVar4->d).registeredID = pAVar10;
+          pGVar4->type = 8;
+          sk_push(st,pGVar4);
+          goto LAB_000d0d84;
+        }
+        iVar14 = 0x1ce;
+        iVar1 = 0x77;
+LAB_000d1070:
+        ERR_put_error(0x22,0xa4,iVar1,"v3_alt.c",iVar14);
+        ERR_add_error_data(2,"value=",__s1);
+LAB_000d0cd4:
+        GENERAL_NAME_free(pGVar4);
+LAB_000d0cda:
+        sk_pop_free(st,GENERAL_NAME_free);
+        return (_STACK *)0x0;
+      }
+      iVar1 = 1;
+LAB_000d0c8e:
+      pGVar4 = GENERAL_NAME_new();
+      if (pGVar4 == (GENERAL_NAME *)0x0) {
+LAB_000d119c:
+        ERR_put_error(0x22,0xa4,0x41,"v3_alt.c",0x1be);
+        goto LAB_000d0cda;
+      }
+      pAVar5 = ASN1_STRING_type_new(0x16);
+      (pGVar4->d).otherName = (OTHERNAME *)pAVar5;
+      if (pAVar5 == (ASN1_STRING *)0x0) {
+LAB_000d0cbc:
+        ERR_put_error(0x22,0xa4,0x41,"v3_alt.c",0x1f8);
+        goto LAB_000d0cd4;
+      }
+      sVar6 = strlen(__s1);
+      iVar3 = ASN1_STRING_set(pAVar5,__s1,sVar6);
+      if (iVar3 == 0) goto LAB_000d0cbc;
+LAB_000d0ed8:
+      pGVar4->type = iVar1;
+      sk_push(st,pGVar4);
+LAB_000d0d84:
+      iVar14 = iVar14 + 1;
+      iVar1 = sk_num(param_3);
+    } while (iVar14 < iVar1);
+  }
+  return st;
+}
+
