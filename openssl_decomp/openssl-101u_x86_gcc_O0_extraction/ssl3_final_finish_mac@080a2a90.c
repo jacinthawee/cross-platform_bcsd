@@ -1,0 +1,17 @@
+
+int ssl3_final_finish_mac(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+
+{
+  int iVar1;
+  int iVar2;
+  
+  iVar1 = ssl3_handshake_mac(param_3,param_4);
+  if (iVar1 != 0) {
+    iVar2 = ssl3_handshake_mac(param_3,param_4 + iVar1);
+    if (iVar2 != 0) {
+      return iVar2 + iVar1;
+    }
+  }
+  return 0;
+}
+

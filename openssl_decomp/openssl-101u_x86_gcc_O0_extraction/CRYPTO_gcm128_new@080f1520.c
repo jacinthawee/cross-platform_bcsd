@@ -1,0 +1,138 @@
+
+undefined4 * CRYPTO_gcm128_new(undefined4 param_1,code *param_2)
+
+{
+  undefined4 *puVar1;
+  uint uVar2;
+  uint uVar3;
+  uint uVar4;
+  uint uVar5;
+  uint uVar6;
+  uint uVar7;
+  uint uVar8;
+  uint uVar9;
+  uint uVar10;
+  uint uVar11;
+  uint uVar12;
+  uint uVar13;
+  uint uVar14;
+  uint uVar15;
+  uint uVar16;
+  uint uVar17;
+  uint uVar18;
+  uint uVar19;
+  undefined4 *puVar20;
+  uint uVar21;
+  uint uVar22;
+  byte bVar23;
+  
+  bVar23 = 0;
+  puVar1 = (undefined4 *)CRYPTO_malloc(0x178,"gcm128.c",0x669);
+  if (puVar1 != (undefined4 *)0x0) {
+    *puVar1 = 0;
+    puVar20 = (undefined4 *)((uint)(puVar1 + 1) & 0xfffffffc);
+    for (uVar6 = (uint)((int)puVar1 + (0x178 - (int)(undefined4 *)((uint)(puVar1 + 1) & 0xfffffffc))
+                       ) >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *puVar20 = 0;
+      puVar20 = puVar20 + (uint)bVar23 * -2 + 1;
+    }
+    puVar1[0x5c] = param_2;
+    puVar1[0x5d] = param_1;
+    (*param_2)(puVar1 + 0x14,puVar1 + 0x14,param_1);
+    uVar6 = puVar1[0x14];
+    uVar4 = puVar1[0x15];
+    uVar2 = uVar6 >> 0x18 | (uVar6 & 0xff0000) >> 8 | (uVar6 & 0xff00) << 8 | uVar6 << 0x18;
+    uVar10 = uVar4 >> 0x18 | (uVar4 & 0xff0000) >> 8 | (uVar4 & 0xff00) << 8 | uVar4 << 0x18;
+    uVar5 = puVar1[0x17];
+    uVar8 = puVar1[0x16];
+    uVar3 = uVar8 >> 0x18 | (uVar8 & 0xff0000) >> 8 | (uVar8 & 0xff00) << 8 | uVar8 << 0x18;
+    uVar14 = uVar5 >> 0x18;
+    uVar11 = uVar14 | (uVar5 & 0xff0000) >> 8 | (uVar5 & 0xff00) << 8 | uVar5 << 0x18;
+    puVar1[0x15] = uVar2;
+    puVar1[0x39] = uVar2;
+    puVar1[0x14] = uVar10;
+    puVar1[0x38] = uVar10;
+    puVar1[0x16] = uVar11;
+    puVar1[0x3a] = uVar11;
+    puVar1[0x17] = uVar3;
+    puVar1[0x3b] = uVar3;
+    uVar7 = (uVar4 >> 0x18) << 0x1f | uVar3 >> 1;
+    puVar1[0x18] = 0;
+    puVar1[0x19] = 0;
+    uVar6 = uVar10 >> 1 | (uVar6 >> 0x18) << 0x1f;
+    puVar1[0x1a] = 0;
+    puVar1[0x1b] = 0;
+    uVar15 = uVar11 >> 1 | (uVar8 >> 0x18) << 0x1f;
+    uVar8 = -(uVar14 & 1) & 0xe1000000 ^ uVar2 >> 1;
+    puVar1[0x28] = uVar6;
+    puVar1[0x29] = uVar8;
+    puVar1[0x2a] = uVar15;
+    puVar1[0x2b] = uVar7;
+    uVar4 = uVar15 >> 1 | (uVar3 >> 1) << 0x1f;
+    uVar21 = (uVar10 >> 1) << 0x1f | uVar7 >> 1;
+    uVar9 = uVar6 >> 1 | (uVar2 >> 1) << 0x1f;
+    uVar22 = -((uVar14 & 2) >> 1) & 0xe1000000 ^ uVar8 >> 1;
+    puVar1[0x20] = uVar9;
+    puVar1[0x21] = uVar22;
+    puVar1[0x22] = uVar4;
+    puVar1[0x23] = uVar21;
+    uVar16 = uVar4 >> 1 | (uVar7 >> 1) << 0x1f;
+    uVar12 = (uVar6 >> 1) << 0x1f | uVar21 >> 1;
+    uVar13 = uVar9 >> 1 | (uVar8 >> 1) << 0x1f;
+    uVar5 = -((uVar14 & 4) >> 2) & 0xe1000000 ^ uVar22 >> 1;
+    puVar1[0x1c] = uVar13;
+    puVar1[0x1d] = uVar5;
+    uVar17 = uVar13 ^ uVar9;
+    puVar1[0x1e] = uVar16;
+    puVar1[0x1f] = uVar12;
+    puVar1[0x24] = uVar17;
+    uVar14 = uVar22 ^ uVar5;
+    puVar1[0x25] = uVar14;
+    uVar18 = uVar4 ^ uVar16;
+    uVar19 = uVar12 ^ uVar21;
+    puVar1[0x27] = uVar19;
+    puVar1[0x26] = uVar18;
+    puVar1[0x2c] = uVar6 ^ uVar13;
+    puVar1[0x2d] = uVar8 ^ uVar5;
+    puVar1[0x2e] = uVar15 ^ uVar16;
+    puVar1[0x2f] = uVar7 ^ uVar12;
+    puVar1[0x30] = uVar6 ^ uVar9;
+    puVar1[0x31] = uVar8 ^ uVar22;
+    puVar1[0x32] = uVar15 ^ uVar4;
+    puVar1[0x33] = uVar7 ^ uVar21;
+    puVar1[0x34] = uVar6 ^ uVar17;
+    puVar1[0x35] = uVar8 ^ uVar14;
+    puVar1[0x36] = uVar15 ^ uVar18;
+    puVar1[0x37] = uVar7 ^ uVar19;
+    puVar1[0x3c] = uVar13 ^ uVar10;
+    puVar1[0x3d] = uVar5 ^ uVar2;
+    puVar1[0x3e] = uVar16 ^ uVar11;
+    puVar1[0x40] = uVar10 ^ uVar9;
+    puVar1[0x3f] = uVar12 ^ uVar3;
+    puVar1[0x41] = uVar22 ^ uVar2;
+    puVar1[0x42] = uVar11 ^ uVar4;
+    puVar1[0x44] = uVar17 ^ uVar10;
+    puVar1[0x43] = uVar3 ^ uVar21;
+    puVar1[0x45] = uVar14 ^ uVar2;
+    puVar1[0x48] = uVar6 ^ uVar10;
+    puVar1[0x46] = uVar18 ^ uVar11;
+    puVar1[0x47] = uVar19 ^ uVar3;
+    puVar1[0x49] = uVar8 ^ uVar2;
+    puVar1[0x4c] = uVar6 ^ uVar13 ^ uVar10;
+    puVar1[0x4a] = uVar15 ^ uVar11;
+    puVar1[0x4d] = uVar8 ^ uVar5 ^ uVar2;
+    puVar1[0x4b] = uVar7 ^ uVar3;
+    puVar1[0x4e] = uVar15 ^ uVar16 ^ uVar11;
+    puVar1[0x4f] = uVar7 ^ uVar12 ^ uVar3;
+    puVar1[0x50] = uVar6 ^ uVar9 ^ uVar10;
+    puVar1[0x51] = uVar8 ^ uVar22 ^ uVar2;
+    puVar1[0x52] = uVar15 ^ uVar4 ^ uVar11;
+    puVar1[0x53] = uVar7 ^ uVar21 ^ uVar3;
+    puVar1[0x54] = uVar6 ^ uVar17 ^ uVar10;
+    puVar1[0x55] = uVar8 ^ uVar14 ^ uVar2;
+    puVar1[0x56] = uVar15 ^ uVar18 ^ uVar11;
+    puVar1[0x57] = uVar7 ^ uVar19 ^ uVar3;
+  }
+  return puVar1;
+}
+

@@ -1,0 +1,94 @@
+
+int UI_set_result(UI *ui,UI_STRING *uis,char *result)
+
+{
+  char cVar1;
+  uint uVar2;
+  char *__s;
+  size_t sVar3;
+  char *pcVar4;
+  char *pcVar5;
+  int iVar6;
+  int in_GS_OFFSET;
+  int line;
+  char local_3a [13];
+  char local_2d [13];
+  int local_20;
+  
+  local_20 = *(int *)(in_GS_OFFSET + 0x14);
+  sVar3 = strlen(result);
+  *(uint *)(ui + 0x14) = *(uint *)(ui + 0x14) & 0xfffffffe;
+  if (uis == (UI_STRING *)0x0) {
+LAB_081895d0:
+    iVar6 = -1;
+  }
+  else {
+    uVar2 = *(uint *)uis;
+    if (uVar2 != 0) {
+      if (uVar2 < 3) {
+        BIO_snprintf(local_3a,0xd,"%d",*(undefined4 *)(uis + 0x10));
+        BIO_snprintf(local_2d,0xd,"%d",*(undefined4 *)(uis + 0x14));
+        if ((int)sVar3 < *(int *)(uis + 0x10)) {
+          *(uint *)(ui + 0x14) = *(uint *)(ui + 0x14) | 1;
+          line = 0x337;
+          iVar6 = 0x65;
+        }
+        else {
+          if ((int)sVar3 <= *(int *)(uis + 0x14)) {
+            if (*(char **)(uis + 0xc) != (char *)0x0) {
+              BUF_strlcpy(*(char **)(uis + 0xc),result,*(int *)(uis + 0x14) + 1);
+              iVar6 = 0;
+              goto LAB_0818957d;
+            }
+            iVar6 = 0x346;
+            goto LAB_081895bd;
+          }
+          *(uint *)(ui + 0x14) = *(uint *)(ui + 0x14) | 1;
+          line = 0x33e;
+          iVar6 = 100;
+        }
+        ERR_put_error(0x28,0x69,iVar6,"ui_lib.c",line);
+        ERR_add_error_data(5,"You must type in ",local_3a,&DAT_08231299,local_2d," characters");
+        goto LAB_081895d0;
+      }
+      if (uVar2 == 3) {
+        if (*(undefined **)(uis + 0xc) == (undefined *)0x0) {
+          iVar6 = 0x352;
+LAB_081895bd:
+          ERR_put_error(0x28,0x69,0x69,"ui_lib.c",iVar6);
+          goto LAB_081895d0;
+        }
+        **(undefined **)(uis + 0xc) = 0;
+        cVar1 = *result;
+        if (cVar1 != '\0') {
+          __s = *(char **)(uis + 0x14);
+          do {
+            pcVar5 = strchr(__s,(int)cVar1);
+            if (pcVar5 != (char *)0x0) {
+              **(char **)(uis + 0xc) = *__s;
+              iVar6 = 0;
+              goto LAB_0818957d;
+            }
+            pcVar5 = *(char **)(uis + 0x18);
+            pcVar4 = strchr(pcVar5,(int)*result);
+            if (pcVar4 != (char *)0x0) {
+              **(char **)(uis + 0xc) = *pcVar5;
+              iVar6 = 0;
+              goto LAB_0818957d;
+            }
+            result = result + 1;
+            cVar1 = *result;
+          } while (cVar1 != '\0');
+        }
+      }
+    }
+    iVar6 = 0;
+  }
+LAB_0818957d:
+  if (local_20 == *(int *)(in_GS_OFFSET + 0x14)) {
+    return iVar6;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+

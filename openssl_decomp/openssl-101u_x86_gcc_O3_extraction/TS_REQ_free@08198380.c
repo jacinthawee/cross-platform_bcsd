@@ -1,0 +1,8 @@
+
+void TS_REQ_free(ASN1_VALUE *param_1)
+
+{
+  ASN1_item_free(param_1,(ASN1_ITEM *)TS_REQ_it);
+  return;
+}
+
