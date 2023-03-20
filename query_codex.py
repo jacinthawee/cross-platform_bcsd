@@ -22,6 +22,12 @@ with open("decomp_test.json") as inf:
 # print(len(data))
 
 mrr_list = []
+prec_1_list = []
+prec_5_list = []
+prec_10_list = []
+rec_1_list = []
+rec_5_list = []
+rec_10_list = []
 id = 0
 query_id = 0
 for query in data:
@@ -114,12 +120,43 @@ for query in data:
     df = df.sort_values(by="pc_similarity", axis=0, ascending=False)
     df.reset_index(drop=True, inplace=True)
     df.to_csv('data/20032023_queries/query'+str(query_id)+".csv")
-    same_fxn = df.loc[df["is_similar"] == 1]
+    same_fxn = df.loc[df["ground_truth"] == 1]
     rank = same_fxn.iloc[0].name + 1
     rr = 1/rank
     mrr_list.append(rr)
+    top1_relevant = (df.head(1)["ground_truth"]==1).sum()
+    top5_relevant = (df.head(5)["ground_truth"]==1).sum()
+    top10_relevant = (df.head(10)["ground_truth"]==1).sum()
+    tot_relevant = (df["ground_truth"]==1).sum()
+
+    prec1 = top1_relevant/1
+    prec5 = top5_relevant/5
+    prec10 = top10_relevant/10
+    rec1 = top1_relevant/tot_relevant
+    rec5 = top5_relevant/tot_relevant
+    rec10 = top10_relevant/tot_relevant
+
+    prec_1_list.append(prec1)
+    prec_5_list.append(prec5)
+    prec_10_list.append(prec10)
+    rec_1_list.append(rec1)
+    rec_5_list.append(rec5)
+    rec_10_list.append(rec10)
+
 mrr = sum(mrr_list)/len(mrr_list)
 print("Test MRR is: ", mrr)
+precision_top1 = sum(prec_1_list)/len(prec_1_list)
+print("precision@1: ", precision_top1)
+precision_top5 = sum(prec_5_list)/len(prec_5_list)
+print("precision@5: ", precision_top5)
+precision_top10 = sum(prec_10_list)/len(prec_10_list)
+print("precision@10: ", precision_top10)
+recall_top1 = sum(rec_1_list)/len(rec_1_list)
+print("recall@1: ", recall_top1)
+recall_top5 = sum(rec_5_list)/len(rec_5_list)
+print("recall@5: ", recall_top5)
+recall_top10 = sum(rec_10_list)/len(rec_10_list)
+print("recall@10: ", recall_top10)
 
 # # Prepare decompiled A and B functions to be compared
 # txtA = open("fxna.c", "r")
