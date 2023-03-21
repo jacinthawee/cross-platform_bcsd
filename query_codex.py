@@ -79,10 +79,10 @@ for query in data:
         expA = "Function A: \n" + respA['choices'][0].text
         expB = "Function B: \n" + respB['choices'][0].text
         prompt_text = "\n\"\"\"\nWhat is the percentage similarity between Function A and Function B? Output a number only\n"
-        query = expA + expB + prompt_text
+        query_cdx = expA + expB + prompt_text
         response = openai.Completion.create(
             engine="text-davinci-003",
-            prompt=query,
+            prompt=query_cdx,
             temperature=0,
             max_tokens=10,
             top_p=1.0,
@@ -93,7 +93,7 @@ for query in data:
 
         pc_similarity = re.findall('(\d+|\d+[.,]\d{1,2})(?=\s*%)', response["choices"][0].text)[0]
         res_dict["pc_similarity"] = pc_similarity
-        if pc_similarity > 50:
+        if int(pc_similarity) > 50:
             res_dict["is_similar"] = 1
         else:
             res_dict["is_similar"] = 0
@@ -111,7 +111,7 @@ for query in data:
             time.sleep(120)
 
         if res_dict["is_similar"] != res_dict["ground_truth"]:
-            file = open("data/unsuccessful/test_"+id+".txt", "w")
+            file = open("data/20032023_queries/unsuccessful/test_"+id+".txt", "w")
             file.write(decA_prompt + respA["choices"][0].text + "\n")
             file.write(decB_prompt + respB["choices"][0].text + "\n")
             file.write(response["choices"][0].text)
